@@ -42,7 +42,7 @@
                         android:layout_height="30dp" />
                     <TextView
                         android:id="@+id/lbl_title_activity"
-                        android:text="@string/title_activity_timeline"
+                        android:text="@string/app_name"
                         android:textColor="@color/colorPrimary"
                         android:textSize="23sp"
                         android:layout_marginStart="8dp"

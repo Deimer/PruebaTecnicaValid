@@ -27,12 +27,10 @@
             android:theme="@style/LoginTheme" />
         <activity
             android:name=".view.timeline.TimelineActivity"
-            android:label="@string/title_activity_timeline"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.details.DetailActivity"
-            android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

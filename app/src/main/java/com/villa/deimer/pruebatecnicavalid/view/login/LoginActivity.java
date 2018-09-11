@@ -98,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
         if(email.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
             Toast.makeText(context, "Antes de avanzar, debe agregar sus credenciales", Toast.LENGTH_LONG).show();
         } else {
-            if(email.equalsIgnoreCase("user123") && password.equalsIgnoreCase("clave123")) {
+            if(email.equalsIgnoreCase("user123") && password.equalsIgnoreCase("password123")) {
                 return true;
             } else {
                 Toast.makeText(context, "Credenciales incorrectas.", Toast.LENGTH_LONG).show();
