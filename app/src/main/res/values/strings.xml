@@ -1,0 +1,34 @@
+<resources>
+
+    <string name="base_url">http://ws.audioscrobbler.com</string>
+    <string name="base_url_image">https://image.tmdb.org/t/p/w500/</string>
+
+    <string name="api_key">829751643419a7128b7ada50de590067</string>
+
+    <string name="method_top_artists">geo.gettopartists</string>
+    <string name="method_details_artists">artist.getinfo</string>
+    <string name="method_top_tracks">geo.gettoptracks</string>
+    <string name="method_details_tracks">track.getInfo</string>
+
+    <string name="country">colombia</string>
+    <string name="format">json</string>
+
+    <string name="app_name">Prueba Tecnica Valid</string>
+
+    <string name="lbl_login">Login</string>
+    <string name="lbl_legend">Ingrese sus credenciales para continuar</string>
+
+    <string name="txt_email">Usuario</string>
+    <string name="txt_password">Contraseña</string>
+
+    <string name="lbl_duration">Duración: </string>
+    <string name="lbl_listeners">Oyentes: </string>
+    <string name="lbl_playcount">Reproducciones: </string>
+    <string name="lbl_album">Album</string>
+    <string name="lbl_link">Homopage</string>
+    <string name="lbl_published">Publicado: </string>
+    <string name="lbl_summary">Resumen: </string>
+    <string name="lbl_content">Contenido: </string>
+    <string name="lbl_ontour">En gira: </string>
+
+</resources>
