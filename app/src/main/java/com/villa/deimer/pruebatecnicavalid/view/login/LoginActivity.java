@@ -15,14 +15,17 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.villa.deimer.pruebatecnicavalid.R;
+import com.villa.deimer.pruebatecnicavalid.presenter.login.LoginDatabasePresenter;
+import com.villa.deimer.pruebatecnicavalid.presenter.login.LoginDatabasePresenterImpl;
 import com.villa.deimer.pruebatecnicavalid.view.timeline.TimelineActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginDatabaseInterface {
 
     private Context context;
+    private LoginDatabasePresenter loginDatabasePresenter;
     @BindView(R.id.lbl_title)
     TextView lblTitle;
     @BindView(R.id.lbl_subtitle)
@@ -46,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setupActivity() {
         context = this;
+        loginDatabasePresenter = new LoginDatabasePresenterImpl(context, this);
         animateLabels();
     }
 
@@ -84,27 +88,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.fab_login)
-    public void openTimeline() {
-        if(validateCredentials()) {
-            startActivity(new Intent(context, TimelineActivity.class));
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            finish();
+    public void clickButLogin() {
+        login();
+    }
+
+    private void login() {
+        String username = txtEmail.getText().toString().trim();
+        String password = txtPassword.getText().toString().trim();
+        if(username.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
+            Toast.makeText(context, "Antes de avanzar, debe agregar sus credenciales", Toast.LENGTH_LONG).show();
+        } else {
+            loginDatabasePresenter.login(username, password);
         }
     }
 
-    private boolean validateCredentials() {
-        String email = txtEmail.getText().toString().trim();
-        String password = txtPassword.getText().toString().trim();
-        if(email.equalsIgnoreCase("") || password.equalsIgnoreCase("")) {
-            Toast.makeText(context, "Antes de avanzar, debe agregar sus credenciales", Toast.LENGTH_LONG).show();
+    @Override
+    public void resultLogin(boolean result, String message) {
+        if(result) {
+            openTimeline();
         } else {
-            if(email.equalsIgnoreCase("user123") && password.equalsIgnoreCase("password123")) {
-                return true;
-            } else {
-                Toast.makeText(context, "Credenciales incorrectas.", Toast.LENGTH_LONG).show();
-            }
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
-        return false;
     }
+
+    private void openTimeline() {
+        startActivity(new Intent(context, TimelineActivity.class));
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
+    }
+
+    @Override
+    public void resultLogout(boolean result) {}
 
 }
