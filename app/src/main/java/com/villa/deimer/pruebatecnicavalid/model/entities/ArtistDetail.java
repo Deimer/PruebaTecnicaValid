@@ -14,9 +14,11 @@ public class ArtistDetail {
     @SerializedName("image")
     private List<ImageItem> images;
     private String url;
+    @SerializedName("bio")
+    private Wiki wiki;
 
     public ArtistDetail() {}
-    public ArtistDetail(String ontour, String mbid, Stats stats, String name, String streamable, List<ImageItem> images, String url) {
+    public ArtistDetail(String ontour, String mbid, Stats stats, String name, String streamable, List<ImageItem> images, String url, Wiki wiki) {
         this.ontour = ontour;
         this.mbid = mbid;
         this.stats = stats;
@@ -24,6 +26,7 @@ public class ArtistDetail {
         this.streamable = streamable;
         this.images = images;
         this.url = url;
+        this.wiki = wiki;
     }
 
     //region Getters
@@ -47,6 +50,9 @@ public class ArtistDetail {
     }
     public String getUrl() {
         return url;
+    }
+    public Wiki getWiki() {
+        return wiki;
     }
     //endregion
 
@@ -72,6 +78,9 @@ public class ArtistDetail {
     public void setUrl(String url) {
         this.url = url;
     }
+    public void setWiki(Wiki wiki) {
+        this.wiki = wiki;
+    }
     //endregion
 
     @Override
@@ -84,6 +93,7 @@ public class ArtistDetail {
                 ", streamable='" + streamable + '\'' +
                 ", images=" + images +
                 ", url='" + url + '\'' +
+                ", wiki=" + wiki +
                 '}';
     }
 }

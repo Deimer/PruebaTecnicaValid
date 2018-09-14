@@ -21,14 +21,15 @@
     <string name="txt_email">Usuario</string>
     <string name="txt_password">Contraseña</string>
 
-    <string name="lbl_duration">Duración: </string>
-    <string name="lbl_listeners">Oyentes: </string>
-    <string name="lbl_playcount">Reproducciones: </string>
-    <string name="lbl_album">Album</string>
-    <string name="lbl_link">Homopage</string>
-    <string name="lbl_published">Publicado: </string>
-    <string name="lbl_summary">Resumen: </string>
-    <string name="lbl_content">Contenido: </string>
-    <string name="lbl_ontour">En gira: </string>
+    <string name="lbl_duration">Duración:\n&#160;&#160;&#160;</string>
+    <string name="lbl_listeners">Oyentes:\n&#160;&#160;&#160;</string>
+    <string name="lbl_playcount">Reproducciones:\n&#160;&#160;&#160;</string>
+    <string name="lbl_album">Album:\n&#160;&#160;&#160;</string>
+    <string name="lbl_link">Homopage:&#160;</string>
+    <string name="lbl_published">Publicado:\n&#160;&#160;&#160;</string>
+    <string name="lbl_summary">Resumen:\n&#160;&#160;&#160;</string>
+    <string name="lbl_content">Contenido:\n&#160;&#160;&#160;</string>
+    <string name="lbl_ontour">En gira:\n&#160;&#160;&#160;</string>
+    <string name="space">&#160;&#160;&#160;</string>
 
 </resources>

@@ -2,7 +2,7 @@ package com.villa.deimer.pruebatecnicavalid.model.services.data.remote;
 
 import android.support.annotation.NonNull;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopArtistsResponse;
-import com.villa.deimer.pruebatecnicavalid.presenter.timeline.TimelinePresenter;
+import com.villa.deimer.pruebatecnicavalid.presenter.timeline.network.TimelinePresenter;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;

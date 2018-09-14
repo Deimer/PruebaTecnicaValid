@@ -1,4 +1,4 @@
-package com.villa.deimer.pruebatecnicavalid.presenter.login;
+package com.villa.deimer.pruebatecnicavalid.presenter.login.database;
 
 import android.content.Context;
 import com.villa.deimer.pruebatecnicavalid.view.login.LoginDatabaseInterface;
@@ -21,19 +21,8 @@ public class LoginDatabasePresenterImpl implements LoginDatabasePresenter {
     }
 
     @Override
-    public void logout() {
-        LoginDatabaseAdapter loginDatabaseAdapter = new LoginDatabaseAdapter(context, this);
-        loginDatabaseAdapter.logout();
-    }
-
-    @Override
     public void resultLogin(boolean result, String message) {
         loginDatabaseInterface.resultLogin(result, message);
-    }
-
-    @Override
-    public void resultLogout(boolean result) {
-        loginDatabaseInterface.resultLogout(result);
     }
 
 }

@@ -67,6 +67,7 @@ public class ArtistRecyclerAdapter extends RecyclerView.Adapter<ArtistRecyclerAd
         setImageItem(holder, artist);
         setLabels(holder, artist);
         animateRecycler(holder);
+        clickOpenDetailsItem(holder, artist);
     }
 
     private void setImageItem(AdapterView holder, Artist artist) {
@@ -96,11 +97,16 @@ public class ArtistRecyclerAdapter extends RecyclerView.Adapter<ArtistRecyclerAd
         holder.lbl_listeners.setText("Oyentes: " + artist.getListeners());
     }
 
-    private void clickOpenDetailsItem(AdapterView holder, Artist artist) {
+    private void clickOpenDetailsItem(AdapterView holder, final Artist artist) {
         holder.cardItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("mbid", artist.getMbid());
+                intent.putExtra("isArtist", true);
+                intent.putExtra("title", artist.getName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }

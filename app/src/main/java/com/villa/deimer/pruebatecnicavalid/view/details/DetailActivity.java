@@ -2,9 +2,11 @@ package com.villa.deimer.pruebatecnicavalid.view.details;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,18 +20,17 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 import com.villa.deimer.pruebatecnicavalid.R;
-import com.villa.deimer.pruebatecnicavalid.model.entities.Artist;
 import com.villa.deimer.pruebatecnicavalid.model.entities.ArtistDetail;
 import com.villa.deimer.pruebatecnicavalid.model.entities.ImageItem;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TrackDetail;
-import com.villa.deimer.pruebatecnicavalid.presenter.detail.DetailPresenter;
-import com.villa.deimer.pruebatecnicavalid.presenter.detail.DetailPresenterImpl;
-import com.villa.deimer.pruebatecnicavalid.view.timeline.adapter.ArtistRecyclerAdapter;
+import com.villa.deimer.pruebatecnicavalid.presenter.detail.network.DetailPresenter;
+import com.villa.deimer.pruebatecnicavalid.presenter.detail.network.DetailPresenterImpl;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 @SuppressLint("SetTextI18n")
 public class DetailActivity extends AppCompatActivity implements DetailInterface {
@@ -58,8 +59,8 @@ public class DetailActivity extends AppCompatActivity implements DetailInterface
     TextView lblPlaycount;
     @BindView(R.id.lbl_album)
     TextView lblAlbum;
-    @BindView(R.id.lbl_link)
-    TextView lblLink;
+    @BindView(R.id.lbl_homepage)
+    TextView lblHomepage;
     @BindView(R.id.lbl_published)
     TextView lblPublished;
     @BindView(R.id.lbl_summary)
@@ -88,8 +89,8 @@ public class DetailActivity extends AppCompatActivity implements DetailInterface
     private void getExtras() {
         Bundle extras = getIntent().getExtras();
         assert extras != null;
-        isArtist = extras.getBoolean("isArtist");
         mbid = extras.getString("mbid");
+        isArtist = extras.getBoolean("isArtist");
         String title = extras.getString("title");
         lblTitle.setText(title);
     }
@@ -115,13 +116,12 @@ public class DetailActivity extends AppCompatActivity implements DetailInterface
         String baseUrl = getString(R.string.base_url);
         String apiKey = getString(R.string.api_key);
         String format = getString(R.string.format);
-        String country = getString(R.string.country);
         if(isArtist) {
             String method = getString(R.string.method_details_artists);
-            detailPresenter.getDetailArtist(baseUrl, method, country, apiKey, format);
+            detailPresenter.getDetailArtist(baseUrl, method, mbid, apiKey, format);
         } else {
             String method = getString(R.string.method_details_tracks);
-            detailPresenter.getDetailTrack(baseUrl, method, country, apiKey, format);
+            detailPresenter.getDetailTrack(baseUrl, method, apiKey, mbid, format);
         }
     }
 
@@ -130,6 +130,40 @@ public class DetailActivity extends AppCompatActivity implements DetailInterface
         progressBar.setVisibility(View.GONE);
         setupInfoArtist(artist);
         setupNestedScrollView();
+    }
+
+    private void setupInfoArtist(ArtistDetail artist) {
+        lblListeners.setText(getString(R.string.lbl_listeners) + artist.getStats().getListeners());
+        lblPlaycount.setText(getString(R.string.lbl_playcount) + artist.getStats().getPlaycount());
+        setupOpenUrl(artist.getUrl());
+        lblDuration.setVisibility(View.GONE);
+        lblAlbum.setVisibility(View.GONE);
+        lblPublished.setText(getString(R.string.lbl_published) + artist.getWiki().getPublished());
+        lblSummary.setText(getString(R.string.lbl_summary) + artist.getWiki().getSummary());
+        lblContent.setText(getString(R.string.lbl_content) + artist.getWiki().getContent());
+        if(artist.getOntour().equalsIgnoreCase("1")) {
+            lblOntour.setText(getString(R.string.lbl_ontour) + "Si");
+        } else {
+            lblOntour.setText(getString(R.string.lbl_ontour) + "No");
+        }
+        String path = pathImageLarge(artist.getImages());
+        setImageItem(path);
+    }
+
+    private void setupOpenUrl(final String url) {
+        if(url == null || url.isEmpty()) {
+            lblHomepage.setText(getString(R.string.space) + "No tiene página");
+            lblHomepage.setTextColor(ContextCompat.getColor(context, R.color.secondaryText));
+        } else {
+            lblHomepage.setText(getString(R.string.space) + "Ver página online");
+            lblHomepage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(browserIntent);
+                }
+            });
+        }
     }
 
     @Override
@@ -145,28 +179,16 @@ public class DetailActivity extends AppCompatActivity implements DetailInterface
         Snackbar.make(toolbar, error, Snackbar.LENGTH_LONG).show();
     }
 
-    private void setupInfoArtist(ArtistDetail artist) {
-        lblListeners.setText(getString(R.string.lbl_listeners) + artist.getStats().getListeners());
-        lblPlaycount.setText(getString(R.string.lbl_playcount) + artist.getStats().getPlaycount());
-        lblLink.setText(getString(R.string.lbl_link) + artist.getUrl());
-        if(artist.getOntour().equalsIgnoreCase("1")) {
-            lblOntour.setText("Si");
-        } else {
-            lblOntour.setText("No");
-        }
-        String path = pathImageLarge(artist.getImages());
-        setImageItem(path);
-    }
-
     private void setupInfoTracks(TrackDetail track) {
         lblDuration.setText(getString(R.string.lbl_duration) + track.getDuration());
         lblListeners.setText(getString(R.string.lbl_listeners) + track.getListeners());
         lblPlaycount.setText(getString(R.string.lbl_playcount) + track.getPlaycount());
-        lblAlbum.setText(getString(R.string.lbl_album) + track.getAlbum().getName());
-        lblLink.setText(getString(R.string.lbl_link) + track.getUrl());
+        lblAlbum.setText(getString(R.string.lbl_album) + track.getAlbum().getTitle());
+        setupOpenUrl(track.getUrl());
         lblPublished.setText(getString(R.string.lbl_published) + track.getWiki().getPublished());
         lblSummary.setText(getString(R.string.lbl_summary) + track.getWiki().getSummary());
         lblContent.setText(getString(R.string.lbl_content) + track.getWiki().getContent());
+        lblOntour.setVisibility(View.GONE);
         String path = pathImageLarge(track.getAlbum().getImages());
         setImageItem(path);
     }

@@ -2,6 +2,7 @@ package com.villa.deimer.pruebatecnicavalid.view.timeline.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.squareup.picasso.Picasso;
 import com.villa.deimer.pruebatecnicavalid.R;
 import com.villa.deimer.pruebatecnicavalid.model.entities.ImageItem;
 import com.villa.deimer.pruebatecnicavalid.model.entities.Track;
+import com.villa.deimer.pruebatecnicavalid.view.details.DetailActivity;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,7 +68,7 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
         Track track = tracks.get(position);
         setImageItem(holder, track);
         setLabels(holder, track);
-        clickOpenDetailsItem(holder);
+        clickOpenDetailsItem(holder, track);
         animateRecycler(holder);
     }
 
@@ -98,11 +101,16 @@ public class TrackRecyclerAdapter extends RecyclerView.Adapter<TrackRecyclerAdap
         holder.lbl_duration.setVisibility(View.VISIBLE);
     }
 
-    private void clickOpenDetailsItem(AdapterView holder) {
+    private void clickOpenDetailsItem(AdapterView holder, final Track track) {
         holder.cardItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra("mbid", track.getMbid());
+                intent.putExtra("isArtist", false);
+                intent.putExtra("title", track.getName());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }

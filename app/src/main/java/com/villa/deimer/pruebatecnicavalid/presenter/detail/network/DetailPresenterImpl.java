@@ -1,4 +1,4 @@
-package com.villa.deimer.pruebatecnicavalid.presenter.detail;
+package com.villa.deimer.pruebatecnicavalid.presenter.detail.network;
 
 import com.villa.deimer.pruebatecnicavalid.model.entities.ArtistDetail;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TrackDetail;
@@ -15,15 +15,15 @@ public class DetailPresenterImpl implements DetailPresenter {
     }
 
     @Override
-    public void getDetailArtist(String baseUrl, String method, String country, String apiKey, String format) {
+    public void getDetailArtist(String baseUrl, String method, String mbid, String apiKey, String format) {
         RetrofitArtistDetailAdapter retrofitDetailAdapter = new RetrofitArtistDetailAdapter(this);
-        retrofitDetailAdapter.getInfoArtist(baseUrl, method, country, apiKey, format);
+        retrofitDetailAdapter.getInfoArtist(baseUrl, method, mbid, apiKey, format);
     }
 
     @Override
-    public void getDetailTrack(String baseUrl, String method, String country, String apiKey, String format) {
+    public void getDetailTrack(String baseUrl, String method, String apiKey, String mbid, String format) {
         RetrofitTrackDetailAdapter retrofitDetailAdapter = new RetrofitTrackDetailAdapter(this);
-        retrofitDetailAdapter.getInfoArtist(baseUrl, method, country, apiKey, format);
+        retrofitDetailAdapter.getInfoArtist(baseUrl, method, apiKey, mbid, format);
     }
 
     @Override

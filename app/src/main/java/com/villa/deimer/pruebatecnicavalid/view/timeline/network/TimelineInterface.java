@@ -1,4 +1,4 @@
-package com.villa.deimer.pruebatecnicavalid.view.timeline;
+package com.villa.deimer.pruebatecnicavalid.view.timeline.network;
 
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopArtistsResponse;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopTracksResponse;

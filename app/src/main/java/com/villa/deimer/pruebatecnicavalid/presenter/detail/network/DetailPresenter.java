@@ -1,4 +1,4 @@
-package com.villa.deimer.pruebatecnicavalid.presenter.detail;
+package com.villa.deimer.pruebatecnicavalid.presenter.detail.network;
 
 import com.villa.deimer.pruebatecnicavalid.model.entities.ArtistDetail;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TrackDetail;
@@ -6,7 +6,7 @@ import com.villa.deimer.pruebatecnicavalid.model.entities.TrackDetail;
 public interface DetailPresenter {
 
     void getDetailArtist(String baseUrl, String method, String country, String apiKey, String format);
-    void getDetailTrack(String baseUrl, String method, String country, String apiKey, String format);
+    void getDetailTrack(String baseUrl, String method, String apiKey, String mbid, String format);
 
     void susccessArtistDetail(ArtistDetail artist);
     void susccessTrackDetail(TrackDetail track);

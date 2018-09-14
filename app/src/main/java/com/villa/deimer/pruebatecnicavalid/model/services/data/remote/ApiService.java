@@ -5,9 +5,11 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 import com.villa.deimer.pruebatecnicavalid.model.entities.ArtistDetail;
+import com.villa.deimer.pruebatecnicavalid.model.entities.ArtistDetailResponse;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopArtistsResponse;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopTracksResponse;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TrackDetail;
+import com.villa.deimer.pruebatecnicavalid.model.entities.TrackDetailResponse;
 
 public interface ApiService {
 
@@ -28,7 +30,7 @@ public interface ApiService {
     );
 
     @GET("/2.0/")
-    Call<ArtistDetail> getInfoArtist(
+    Call<ArtistDetailResponse> getInfoArtist(
             @Query("method")String method,
             @Query("mbid")String mbid,
             @Query("api_key")String apiKey,
@@ -36,7 +38,7 @@ public interface ApiService {
     );
 
     @GET("/2.0/")
-    Call<TrackDetail> getInfoTrack(
+    Call<TrackDetailResponse> getInfoTrack(
             @Query("method")String method,
             @Query("api_key")String apiKey,
             @Query("mbid")String mbid,

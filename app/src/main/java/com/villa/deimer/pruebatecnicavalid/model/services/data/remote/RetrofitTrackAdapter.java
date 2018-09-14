@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.converter.gson.GsonConverterFactory;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopTracksResponse;
-import com.villa.deimer.pruebatecnicavalid.presenter.timeline.TimelinePresenter;
+import com.villa.deimer.pruebatecnicavalid.presenter.timeline.network.TimelinePresenter;
 
 public class RetrofitTrackAdapter implements Callback<TopTracksResponse> {
 

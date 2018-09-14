@@ -7,7 +7,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.villa.deimer.pruebatecnicavalid.model.entities.User;
 import com.villa.deimer.pruebatecnicavalid.model.services.data.local.database.helper.DatabaseHelper;
-import com.villa.deimer.pruebatecnicavalid.presenter.login.LoginDatabasePresenter;
+import com.villa.deimer.pruebatecnicavalid.presenter.login.database.LoginDatabasePresenter;
 
 public class LoginDatabaseAdapter {
 
@@ -20,17 +20,7 @@ public class LoginDatabaseAdapter {
         this.loginDatabasePresenter = loginDatabasePresenter;
     }
 
-    public void create(User user){
-        try {
-            helper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
-            RuntimeExceptionDao<User, Integer> userDao = helper.getUserRuntimeDao();
-            userDao.create(user);
-        } catch (Exception ex) {
-            Log.e(this.getClass().getSimpleName(), "Error: " + ex.getMessage());
-        }
-    }
-
-    public User show(){
+    private User show() {
         User user;
         try {
             helper = OpenHelperManager.getHelper(context,DatabaseHelper.class);
@@ -58,20 +48,6 @@ public class LoginDatabaseAdapter {
             }
         }catch (Exception ex){
             loginDatabasePresenter.resultLogin(false, ex.toString());
-            Log.e(this.getClass().getSimpleName(), "Error: " + ex.toString());
-        }
-    }
-
-    public void logout() {
-        try {
-            helper = OpenHelperManager.getHelper(context,DatabaseHelper.class);
-            RuntimeExceptionDao<User, Integer> userDao = helper.getUserRuntimeDao();
-            User user = show();
-            user.setSession(false);
-            userDao.update(user);
-            loginDatabasePresenter.resultLogout(true);
-        }catch (Exception ex){
-            loginDatabasePresenter.resultLogout(false);
             Log.e(this.getClass().getSimpleName(), "Error: " + ex.toString());
         }
     }

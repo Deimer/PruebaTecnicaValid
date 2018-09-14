@@ -10,13 +10,19 @@ import android.widget.ImageView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.villa.deimer.pruebatecnicavalid.R;
+import com.villa.deimer.pruebatecnicavalid.presenter.welcome.database.WelcomeDatabasePresenter;
+import com.villa.deimer.pruebatecnicavalid.presenter.welcome.database.WelcomeDatabasePresenterImpl;
 import com.villa.deimer.pruebatecnicavalid.view.login.LoginActivity;
+import com.villa.deimer.pruebatecnicavalid.view.timeline.TimelineActivity;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements WelcomeDatabaseInterface {
 
     private Context context;
+    private boolean isLogged;
+    private WelcomeDatabasePresenter welcomeDatabasePresenter;
 
     @BindView(R.id.img_logo)
     ImageView imgLogo;
@@ -31,6 +37,17 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void setupActivity() {
         context = this;
+        welcomeDatabasePresenter = new WelcomeDatabasePresenterImpl(context, this);
+        setupValidationLogin();
+    }
+
+    private void setupValidationLogin() {
+        welcomeDatabasePresenter.isLogged();
+    }
+
+    @Override
+    public void resultIsLogged(boolean result) {
+        isLogged = result;
         setupTimeAnimation();
     }
 
@@ -57,12 +74,20 @@ public class WelcomeActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    startActivity(new Intent(context, LoginActivity.class));
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                    finish();
+                    decideNext();
                 }
             }, 1300);
         }
+    }
+
+    private void decideNext() {
+        if(isLogged) {
+            startActivity(new Intent(context, TimelineActivity.class));
+        } else {
+            startActivity(new Intent(context, LoginActivity.class));
+        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
     }
 
 }

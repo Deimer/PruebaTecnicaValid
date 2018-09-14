@@ -1,10 +1,10 @@
-package com.villa.deimer.pruebatecnicavalid.presenter.timeline;
+package com.villa.deimer.pruebatecnicavalid.presenter.timeline.network;
 
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopArtistsResponse;
 import com.villa.deimer.pruebatecnicavalid.model.entities.TopTracksResponse;
 import com.villa.deimer.pruebatecnicavalid.model.services.data.remote.RetrofitArtistAdapter;
 import com.villa.deimer.pruebatecnicavalid.model.services.data.remote.RetrofitTrackAdapter;
-import com.villa.deimer.pruebatecnicavalid.view.timeline.TimelineInterface;
+import com.villa.deimer.pruebatecnicavalid.view.timeline.network.TimelineInterface;
 
 public class TimelinePresenterImpl implements TimelinePresenter {
 

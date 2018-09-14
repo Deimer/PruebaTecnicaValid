@@ -6,17 +6,17 @@ import java.util.List;
 public class Album {
 
     private String mbid;
-    private String name;
+    private String title;
     @SerializedName("image")
     private List<ImageItem> images;
     private String playcount;
-    private Artist artist;
+    private String artist;
     private String url;
 
     public Album() {}
-    public Album(String mbid, String name, List<ImageItem> images, String playcount, Artist artist, String url) {
+    public Album(String mbid, String title, List<ImageItem> images, String playcount, String artist, String url) {
         this.mbid = mbid;
-        this.name = name;
+        this.title = title;
         this.images = images;
         this.playcount = playcount;
         this.artist = artist;
@@ -27,8 +27,8 @@ public class Album {
     public String getMbid() {
         return mbid;
     }
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
     public List<ImageItem> getImages() {
         return images;
@@ -36,7 +36,7 @@ public class Album {
     public String getPlaycount() {
         return playcount;
     }
-    public Artist getArtist() {
+    public String getArtist() {
         return artist;
     }
     public String getUrl() {
@@ -48,8 +48,8 @@ public class Album {
     public void setMbid(String mbid) {
         this.mbid = mbid;
     }
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
     public void setImages(List<ImageItem> images) {
         this.images = images;
@@ -57,7 +57,7 @@ public class Album {
     public void setPlaycount(String playcount) {
         this.playcount = playcount;
     }
-    public void setArtist(Artist artist) {
+    public void setArtist(String artist) {
         this.artist = artist;
     }
     public void setUrl(String url) {
@@ -69,10 +69,10 @@ public class Album {
     public String toString() {
         return "Album{" +
                 "mbid='" + mbid + '\'' +
-                ", name='" + name + '\'' +
+                ", title='" + title + '\'' +
                 ", images=" + images +
                 ", playcount='" + playcount + '\'' +
-                ", artist=" + artist +
+                ", artist='" + artist + '\'' +
                 ", url='" + url + '\'' +
                 '}';
     }
