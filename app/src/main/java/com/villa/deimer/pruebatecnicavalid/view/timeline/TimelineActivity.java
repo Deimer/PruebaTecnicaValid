@@ -9,13 +9,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+
+import com.squareup.otto.Subscribe;
 import com.villa.deimer.pruebatecnicavalid.R;
 import com.villa.deimer.pruebatecnicavalid.model.entities.User;
+import com.villa.deimer.pruebatecnicavalid.model.events.EventDialogMessage;
+import com.villa.deimer.pruebatecnicavalid.model.events.StationBus;
 import com.villa.deimer.pruebatecnicavalid.presenter.timeline.database.TimelineDatabasePresenter;
 import com.villa.deimer.pruebatecnicavalid.presenter.timeline.database.TimelineDatabasePresenterImpl;
 import com.villa.deimer.pruebatecnicavalid.view.login.LoginActivity;
 import com.villa.deimer.pruebatecnicavalid.view.timeline.adapter.TabPagerTimelineAdapter;
 import com.villa.deimer.pruebatecnicavalid.view.timeline.database.TimelineDatabaseInterface;
+import com.villa.deimer.pruebatecnicavalid.view.timeline.dialog.InfoDialogs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +42,28 @@ public class TimelineActivity extends AppCompatActivity implements TimelineDatab
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+
+    public void onStart() {
+        super.onStart();
+        StationBus.getBus().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        StationBus.getBus().unregister(this);
+    }
+
+    @Subscribe
+    public void recievedMessage(EventDialogMessage eventDialogMessage){
+        int option = eventDialogMessage.getOption();
+        if(option == 1) {
+            boolean success = eventDialogMessage.isSuccess();
+            if(success) {
+                timelineDatabasePresenter.logout();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +98,7 @@ public class TimelineActivity extends AppCompatActivity implements TimelineDatab
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
             @Override
-            public void onPageSelected(int position) { }
+            public void onPageSelected(int position) {}
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
@@ -86,7 +113,8 @@ public class TimelineActivity extends AppCompatActivity implements TimelineDatab
 
     @OnClick(R.id.fab)
     public void clickLogout() {
-        timelineDatabasePresenter.logout();
+        InfoDialogs dialogs = new InfoDialogs(context);
+        dialogs.createDialogQuestion("¿Está seguro que desea cerrar la sesión?");
     }
 
     @Override
